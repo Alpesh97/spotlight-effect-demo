@@ -1,0 +1,243 @@
+<html>
+
+<head>
+    <title>Spotlight Effect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=No">
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Montserrat:wght@300;400;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .mask-image-section .text-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .mask-image-section .inner-mask-image-block {
+        position: relative;
+        max-width: 100%;
+        padding: 75px 25px;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-content {
+        max-width: 80.63vw;
+        text-align: center;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-content h1 {
+        position: relative;
+        text-transform: inherit;
+        z-index: 10;
+        font-size: 12.65vh;
+        line-height: 14.3vh;
+        color: #212121;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: normal;
+        text-align: center;
+        margin-bottom: 5.9vh;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-content h1 strong {
+        font-weight: 600;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-content h1>span {
+        font-style: italic;
+        display: block;
+        font-family: 'Merriweather', serif;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-content p {
+        font-size: 4.24vh;
+        color: #212121;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        text-align: center;
+        position: relative;
+        letter-spacing: 0.27vw;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-wrapper {
+        z-index: 9;
+        overflow: hidden;
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        -webkit-transform-origin: center;
+        -ms-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: scale(1) translate(-50%, -50%);
+        transform: scale(1) translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        width: 21.875vw;
+        height: 21.875vw;
+        transition: left 0.3s, top 0.3s, opacity 0.3s;
+        transition-timing-function: ease-out;
+    }
+    .mask-image-section.circleScaled .mask-image-wrapper{
+        opacity: 0;
+    }
+
+    .mask-image-section .inner-mask-image-block .mask-image-wrapper .spotlight {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        background: url(images/mask-image.jpg) center center / cover no-repeat;
+        height: 100%;
+        width: 100%;
+        transition: left 0.3s, top 0.3s;
+        transition-timing-function: ease-out;
+    }
+
+    .scroll-section-arrow {
+        z-index: 11;
+        position: absolute;
+        top: -110px;
+        left: -110px;
+        width: 70px;
+        height: 70px;
+        background: url("images/about-hexa-arrow.svg") 50% 50% no-repeat;
+        transition: left 0.3s, top 0.3s, transform 0.5s;
+        transition-timing-function: ease-out;
+        cursor: pointer;
+        transform: scale(0);
+    }
+    .mask-image-section.scaled .scroll-section-arrow{
+        transform: scale(1);
+    }
+    header{
+        height: 80px;
+        background-color: #fff;
+            box-shadow: 0 0 3px rgb(0 0 0 / 11%);
+    }
+    .section{
+        height: 100vh;
+    }
+    .mask-image-section{
+        position: relative;
+        overflow: hidden;
+    }
+    </style>
+</head>
+
+<body>
+    <header></header>
+    <section class="mask-image-section">
+        <div class="inner-mask-image-block">
+            <div class="mask-image-content">
+                <div class="text-content">
+                    <h1><strong>We help<br> our clients </strong>
+                        <span>to grow</span>
+                        their business
+                    </h1>
+                    <p>Let's do the magic for you</p>
+                </div>
+                <div class="mask-image-wrapper">
+                    <div class="spotlight">
+                    </div>
+                </div>
+                <div class="scroll-section-arrow"></div>
+            </div>
+        </div>
+    </section>
+    <section class="section"></section>
+    <script type="text/javascript">
+
+    const circle = document.querySelector('.mask-image-wrapper'),
+          bgImage = document.querySelector('.spotlight'),
+          scrollSectionArrow = document.querySelector('.scroll-section-arrow'),
+          section = document.querySelector('.mask-image-section');
+          headerHieght = document.querySelector('header').offsetHeight;
+          scrollSectionArrowHieght = document.querySelector('.scroll-section-arrow').offsetHeight / 2;
+
+    let screenWidth = screen.width / 2,
+        screenHeight = screen.height / 2,
+
+        circleLeft = screenWidth,
+        circleTop = screenHeight - headerHieght,
+
+        scrollArrowLeft = screenWidth - scrollSectionArrowHieght,
+        scrollArrowTop = screenHeight - scrollSectionArrowHieght - headerHieght,
+
+        bgLeft = -(screenWidth - (screenWidth / 4.5 - 2.66)),
+        bgTop = -(screenHeight - (screenHeight / 2.5 + 3.2));
+
+    section.addEventListener('mouseenter', e => {
+      e.target.classList.add('scaled');
+      e.target.classList.remove('circleScaled');
+    });
+
+    section.addEventListener('mouseleave', e => {
+        e.target.classList.remove('scaled');
+        e.target.classList.add('circleScaled');
+    });
+
+    const screeSize = () => {
+        bgImage.style.width = screen.width + 'px';
+        bgImage.style.height = screen.height + 'px';
+    }
+    screeSize();
+
+    window.onresize = function(event) {
+        screeSize();
+    };
+
+    document.addEventListener('mousemove', (e) => {
+        circleLeft = e.clientX;
+        circleTop = e.clientY - headerHieght;
+
+        scrollArrowLeft = e.clientX - scrollSectionArrowHieght;
+        scrollArrowTop = e.clientY - scrollSectionArrowHieght - headerHieght;
+
+        bgLeft = -e.clientX + (screenWidth / 4.5 - 2.66);
+        bgTop = -e.clientY + (screenHeight / 2.5 + 3.2);
+
+    });
+    const mouseMove = () => {
+        circle.style.transition = 'left 0.3s ease-out, top 0.3s ease-out, opacity 0.3s ease-out';
+        circle.style.top = circleTop  + 'px';
+        circle.style.left = circleLeft  + 'px';
+
+        scrollSectionArrow.style.transition = 'left 0.3s ease-out, top 0.3s ease-out, transform 0.5s ease-out';
+        scrollSectionArrow.style.top = scrollArrowTop  + 'px';
+        scrollSectionArrow.style.left = scrollArrowLeft  + 'px';
+
+        bgImage.style.transition = 'left 0.3s ease-out, top 0.3s ease-out';
+        bgImage.style.top = bgTop  + 'px';
+        bgImage.style.left = bgLeft  + 'px';
+
+        window.requestAnimationFrame(mouseMove);
+    }
+    mouseMove();
+
+    document.addEventListener('scroll', (e) => {
+        const mouseMove2 = () => {
+            // circle.style.transition="none";
+            circle.style.top = circleTop + window.pageYOffset + 'px';
+
+            // scrollSectionArrow.style.transition="none";
+            scrollSectionArrow.style.top = scrollArrowTop + window.pageYOffset + 'px'; 
+
+            // bgImage.style.transition = 'none';
+            bgImage.style.top = bgTop - window.pageYOffset + 'px';
+
+            window.requestAnimationFrame(mouseMove2);
+        }
+        mouseMove2();
+    });
+
+    </script>
+</body>
+
+</html>

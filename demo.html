@@ -1,0 +1,173 @@
+<html>
+<head>
+    <title>Demos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=No">
+    <style type="text/css">
+
+.mask-image-section .service-development-container {
+   padding: 20px 25px 0;
+}
+  .mask-image-section .service-development-container .service-item-wrapper {
+   padding: 0;
+}
+  .mask-image-section .development-container {
+   max-width: 100%;
+   padding: 140px 25px;
+   position: relative;
+   z-index: 1;
+   background: url("images/mask-image.jpg") no-repeat center;
+   background-size: cover;
+   height: calc(100vh - 89px);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+  .mask-image-section .development-container .mask-image-content {
+   max-width: 80.63vw;
+   text-align: center;
+}
+  .mask-image-section .development-container .mask-image-content h1 {
+   position: relative;
+   text-transform: inherit;
+   z-index: 10;
+   font-size: 12.65vh;
+   line-height: 14.3vh;
+   color: #212121;
+   font-family: "Montserrat";
+   font-weight: normal;
+   text-align: center;
+   margin-bottom: 5.9vh;
+}
+  .mask-image-section .development-container .mask-image-content h1 strong {
+   font-weight: 600;
+}
+  .mask-image-section .development-container .mask-image-content h1 > span {
+   font-style: italic;
+   display: block;
+   font-family: Merriweather, serif;
+}
+  .mask-image-section .development-container .mask-image-content p {
+   font-size: 4.24vh;
+   color: #212121;
+   font-family: "Montserrat";
+   font-weight: 300;
+   text-align: center;
+   z-index: 6;
+   position: relative;
+   letter-spacing: 0.27vw;
+}
+  .mask-image-section .development-container .mask-image-wrapper .spotlight {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   background-image: radial-gradient(circle, transparent 199px, rgba(255, 255, 255, 1) 200px);
+}
+  .mask-image-section .development-container .mask-image-wrapper .magic-arrow {
+   z-index: 11;
+   position: absolute;
+   top: -110px;
+   left: -110px;
+   width: 0px;
+   height: 0px;
+   background: url("images/about-hexa-arrow.svg") 50% 50% no-repeat;
+   transition: height 0.5s, width 0.5s;
+   cursor: pointer;
+}
+ 
+.mask-image-section .development-container .mask-image-content:hover .magic-arrow{
+  width: 70px;
+  height: 70px;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <section class="development-section about-development mask-image-section">
+        <div class="development-container projects">
+            <div class="mask-image-content">
+                <div class="text-content">
+                    <h1><strong>We help<br> our clients </strong>
+                        <span>to grow</span> 
+                        their business
+                    </h1>
+                    <p>Let's do the magic for you</p>
+                </div>
+                <div class="mask-image-wrapper">
+                  <div class="spotlight">
+                  </div>
+                  <div class="magic-arrow"></div>
+                </div>
+            </div>
+        </div>
+    </section>          
+
+    <script src="js/jquery.js"></script>
+
+    <script type="text/javascript">
+    /***About spotlight effect***/
+function spotlight_effect() {
+    // if ($("").length) {
+        // $(".magic-arrow").click(function() {
+        //     var ftop = $(".mask-image-section .service-development-container").offset().top - 98;
+        //     $('html, body').stop().animate({
+        //         scrollTop: ftop
+        //     }, 1000);
+        // });
+
+        //DOM load event
+        // window.addEventListener("DOMContentLoaded", () => {
+            const spotlight = document.querySelector('.spotlight');
+
+            var spotlightSize = 'transparent 0px, rgba(255, 255, 255, 1) 0px)';
+
+            const _element = document.querySelector(' .mask-image-section .development-container .mask-image-content');
+
+            if ($(window).innerWidth() > 1024) {
+                _element.addEventListener('mouseenter', e => {
+                    spotlightSize = 'transparent 199px, rgba(255, 255, 255, 1) 200px)';
+                });
+            } else {
+                _element.addEventListener('mouseenter', e => {
+                    spotlightSize = 'transparent 0px, rgba(255, 255, 255, 1) 0px)';
+                });
+            }
+
+            _element.addEventListener('mouseleave', e => {
+                spotlightSize = 'transparent 0px, rgba(255, 255, 255, 1) 0px)';
+                spotlight.style.backgroundImage = `radial-gradient(circle at ${e.pageX / window.outerWidth * 100}% ${e.pageY / window.outerHeight * 100}%, ${spotlightSize}`;
+            });
+
+
+            const spotlight_element = document.querySelector('.mask-image-section .development-container');
+
+            spotlight_element.addEventListener('mousemove', e => updateSpotlight(e));
+
+            function updateSpotlight(e) {
+                var $magic_arrow = $(".magic-arrow"),
+                    magicWHalf_arrow = $magic_arrow.width() / 2;
+                $magic_arrow.css({ "left": (e.pageX - magicWHalf_arrow), "top": (e.pageY - magicWHalf_arrow) - 0 });
+                spotlight.style.backgroundImage = `radial-gradient(circle at ${e.pageX / window.outerWidth * 100}% ${e.pageY / window.outerHeight * 100}%, ${spotlightSize}`;
+            }
+        // });
+    }
+// }
+</script>
+<script type="text/javascript">
+  $(function () {
+
+      spotlight_effect();
+
+    $(window).resize(function(){
+        spotlight_effect();
+    });
+  });
+  $(window).on('load',function(){
+    spotlight_effect();
+  });
+</script>
+</body>
+</html>
